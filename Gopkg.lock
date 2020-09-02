@@ -21,6 +21,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:2fedaedf36853a901923497fada49fefa90e80b883cb900a8fd1f0c8558859ab"
+  name = "github.com/openshift/api"
+  packages = ["apps/v1"]
+  pruneopts = "UT"
+  revision = "7ac89ba6b97136f09e68e06c32638dae78cad516"
+
+[[projects]]
+  branch = "master"
   digest = "1:be22ec150d2e0252f2532ca537926e384100bedb1b5b84cc93feb01122887b6a"
   name = "golang.org/x/net"
   packages = [
@@ -66,12 +74,14 @@
   version = "v0.9.1"
 
 [[projects]]
-  digest = "1:ea0dae50cd1991872b940aec752319d76ca59bf858766414a589cc6ccaba6397"
+  digest = "1:c07364722157169e10e4f1030135806770c230e4710ace8bc33c5375225b1d86"
   name = "k8s.io/api"
   packages = [
     "admission/v1beta1",
+    "apps/v1beta1",
     "authentication/v1",
     "core/v1",
+    "extensions/v1beta1",
   ]
   pruneopts = "UT"
   revision = "de21aa00e146b167b18012339b328c5f420df4c2"
@@ -119,6 +129,7 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/openshift/api/apps/v1",
     "k8s.io/api/admission/v1beta1",
     "k8s.io/api/core/v1",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
