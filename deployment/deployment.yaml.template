@@ -19,6 +19,11 @@ spec:
       - name: server
         image: quay.io/loren123/admission-controller-webhook-demo2:latest
         imagePullPolicy: Always
+        env:
+        - name: OLD_REG
+          value: "old.reg"
+        - name: NEW_REG
+          value: "new.org"
         ports:
         - containerPort: 8443
           name: webhook-api

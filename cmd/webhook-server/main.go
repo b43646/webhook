@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -61,10 +62,10 @@ func Mutate(body []byte, verbose bool) ([]byte, error) {
 		// tell K8S how it should modifiy it
 		p := []map[string]string{}
 
-		oldReg := "old.reg"
-		newReg := "new.reg"
-		//oldRegistry := os.Getenv("OLD_REGISTRY")
-		//newRegistry := os.Getenv("NEW_REGISTRY")
+		//oldReg := "old.reg"
+		//newReg := "new.reg"
+		oldReg := os.Getenv("OLD_REG")
+		newReg := os.Getenv("NEW_REG")
 		for i := range dc.Spec.Template.Spec.Containers {
 			imageAddress := dc.Spec.Template.Spec.Containers[i].Image
 			newImageAddress := strings.Replace(imageAddress, oldReg, newReg, 1)
