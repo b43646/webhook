@@ -24,6 +24,7 @@ func Mutate(body []byte, verbose bool) ([]byte, error) {
 		log.Printf("recv: %s\n", string(body)) // untested section
 	}
 
+	log.Printf("recv: %s\n", string(body)) // untested section
 	// unmarshal request into AdmissionReview struct
 	admReview := v1beta1.AdmissionReview{}
 	if err := json.Unmarshal(body, &admReview); err != nil {
@@ -39,6 +40,7 @@ func Mutate(body []byte, verbose bool) ([]byte, error) {
 	resp := v1beta1.AdmissionResponse{}
 
 	if ar != nil {
+		log.Println("enter now!!") // untested section
 
 		// get the Pod object and unmarshal it into its struct, if we cannot, we might as well stop here
 		if err := json.Unmarshal(ar.Object.Raw, &dc); err != nil {

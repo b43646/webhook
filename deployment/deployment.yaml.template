@@ -57,6 +57,6 @@ webhooks:
       caBundle: ${CA_PEM_B64}
     rules:
       - operations: [ "CREATE" ]
-        apiGroups: [""]
+        apiGroups: ["apps.openshift.io"]
         apiVersions: ["v1"]
         resources: ["deploymentconfigs"]
