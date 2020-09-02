@@ -12,6 +12,17 @@
   revision = "65acae22fc9d"
 
 [[projects]]
+  digest = "1:207cd06b5580b9ec78f7a75054a8b4ab1ec6a4f1926fe3abf37910ae6027c2b0"
+  name = "github.com/golang/protobuf"
+  packages = [
+    "internal/gengogrpc",
+    "protoc-gen-go",
+  ]
+  pruneopts = "UT"
+  revision = "d04d7b157bb510b1e0c10132224b616ac0e26b17"
+  version = "v1.4.2"
+
+[[projects]]
   digest = "1:a6181aca1fd5e27103f9a920876f29ac72854df7345a39f3b01e61c8c94cc8af"
   name = "github.com/google/gofuzz"
   packages = ["."]
@@ -20,12 +31,12 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
-  digest = "1:2fedaedf36853a901923497fada49fefa90e80b883cb900a8fd1f0c8558859ab"
+  branch = "release-3.11"
+  digest = "1:9234abf9ccf3b866f6cb1eeb86d161f36f722f0133d8a1b10157d2bc38a193c5"
   name = "github.com/openshift/api"
   packages = ["apps/v1"]
   pruneopts = "UT"
-  revision = "7ac89ba6b97136f09e68e06c32638dae78cad516"
+  revision = "779a333deb138a2a3821ba58b72d538f60930920"
 
 [[projects]]
   branch = "master"
@@ -64,6 +75,46 @@
   pruneopts = "UT"
   revision = "23ae387dee1f90d29a23c0e87ee0b46038fbed0e"
   version = "v0.3.3"
+
+[[projects]]
+  digest = "1:c40f6a4c4bcaa080656bde28cdee42d67d3d8c8394ce927dc91b9301f6688b6e"
+  name = "google.golang.org/protobuf"
+  packages = [
+    "cmd/protoc-gen-go/internal_gengo",
+    "compiler/protogen",
+    "encoding/prototext",
+    "encoding/protowire",
+    "internal/descfmt",
+    "internal/descopts",
+    "internal/detrand",
+    "internal/encoding/defval",
+    "internal/encoding/messageset",
+    "internal/encoding/tag",
+    "internal/encoding/text",
+    "internal/errors",
+    "internal/fieldsort",
+    "internal/filedesc",
+    "internal/filetype",
+    "internal/flags",
+    "internal/genid",
+    "internal/impl",
+    "internal/mapsort",
+    "internal/pragma",
+    "internal/set",
+    "internal/strs",
+    "internal/version",
+    "proto",
+    "reflect/protodesc",
+    "reflect/protoreflect",
+    "reflect/protoregistry",
+    "runtime/protoiface",
+    "runtime/protoimpl",
+    "types/descriptorpb",
+    "types/pluginpb",
+  ]
+  pruneopts = "UT"
+  revision = "3f7a61f89bb6813f89d981d1870ed68da0b3c3f1"
+  version = "v1.25.0"
 
 [[projects]]
   digest = "1:2d1fbdc6777e5408cabeb02bf336305e724b925ff4546ded0fa8715a7267922a"
@@ -129,9 +180,9 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/golang/protobuf/protoc-gen-go",
     "github.com/openshift/api/apps/v1",
     "k8s.io/api/admission/v1beta1",
-    "k8s.io/api/core/v1",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
   ]
   solver-name = "gps-cdcl"
