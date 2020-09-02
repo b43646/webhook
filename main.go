@@ -1,18 +1,20 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
-	"encoding/json"
 
 	v1beta1 "k8s.io/api/admission/v1beta1"
-	corev1 "k8s.io/api/core/v1"
+	//corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-        ov1 "github.com/openshift/api/apps/v1"
+
+	ov1 "github.com/openshift/api/apps/v1"
 )
 
 
@@ -29,7 +31,8 @@ func Mutate(body []byte, verbose bool) ([]byte, error) {
 	}
 
 	var err error
-	var pod *corev1.Pod
+	//var pod *corev1.Pod
+	var dc *ov1.DeploymentConfig
 
 	responseBody := []byte{}
 	ar := admReview.Request
@@ -38,7 +41,7 @@ func Mutate(body []byte, verbose bool) ([]byte, error) {
 	if ar != nil {
 
 		// get the Pod object and unmarshal it into its struct, if we cannot, we might as well stop here
-		if err := json.Unmarshal(ar.Object.Raw, &pod); err != nil {
+		if err := json.Unmarshal(ar.Object.Raw, &dc); err != nil {
 			return nil, fmt.Errorf("unable unmarshal pod json object %v", err)
 		}
 		// set response options
@@ -49,17 +52,24 @@ func Mutate(body []byte, verbose bool) ([]byte, error) {
 
 		// add some audit annotations, helpful to know why a object was modified, maybe (?)
 		resp.AuditAnnotations = map[string]string{
-			"mutateme": "yup it did it",
+			"mutateme": "restored",
 		}
 
 		// the actual mutation is done by a string in JSONPatch style, i.e. we don't _actually_ modify the object, but
 		// tell K8S how it should modifiy it
 		p := []map[string]string{}
-		for i := range pod.Spec.Containers {
+
+		oldReg := "old.reg"
+		newReg := "new.reg"
+		//oldRegistry := os.Getenv("OLD_REGISTRY")
+		//newRegistry := os.Getenv("NEW_REGISTRY")
+		for i := range dc.Spec.Template.Spec.Containers {
+			imageAddress := dc.Spec.Template.Spec.Containers[i].Image
+			newImageAddress := strings.Replace(imageAddress, oldReg, newReg, 1)
 			patch := map[string]string{
 				"op":    "replace",
-				"path":  fmt.Sprintf("/spec/containers/%d/image", i),
-				"value": "debian",
+				"path":  fmt.Sprintf("/spec/template/spec/containers/%d/image", i),
+				"value": newImageAddress,
 			}
 			p = append(p, patch)
 		}
